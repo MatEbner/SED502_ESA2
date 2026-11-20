@@ -1,0 +1,182 @@
+:root {
+  font-family: Arial, Helvetica, sans-serif;
+  color: #102a43;
+  background-color: #f1f5f9;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  line-height: 1.5;
+
+  --farbe-navy: #102a43;
+  --farbe-hintergrund: #f1f5f9;
+  --farbe-flaeche: #ffffff;
+  --farbe-text: #102a43;
+  --farbe-sekundaer: #3e566e;
+  --farbe-linie: #cbd6e2;
+  --farbe-erfolg: #16845b;
+  --farbe-warnung: #c58a25;
+  --farbe-fehler: #c0392b;
+  --radius-karte: 12px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  background-color: var(--farbe-hintergrund);
+}
+
+a {
+  color: inherit;
+}
+
+a:focus-visible {
+  outline: 3px solid #78b7e5;
+  outline-offset: 3px;
+}
+
+.seitenkopf {
+  color: var(--farbe-flaeche);
+  background-color: var(--farbe-navy);
+}
+
+.seitenkopf__innen {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: min(100% - 32px, 1200px);
+  margin: 0 auto;
+  padding: 18px 0;
+}
+
+.marke {
+  width: fit-content;
+  color: var(--farbe-flaeche);
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.navigation {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.navigation__link {
+  padding: 6px 10px;
+  border-radius: 6px;
+  color: var(--farbe-flaeche);
+  text-decoration: none;
+}
+
+.navigation__link:hover,
+.navigation__link.active {
+  background-color: #284761;
+}
+
+.seiteninhalt {
+  width: min(100% - 32px, 1200px);
+  min-height: calc(100vh - 156px);
+  margin: 0 auto;
+  padding: 32px 0;
+}
+
+.seitenkarte {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 24px;
+  border: 1px solid var(--farbe-linie);
+  border-radius: var(--radius-karte);
+  background-color: var(--farbe-flaeche);
+  box-shadow: 0 8px 24px rgb(16 42 67 / 6%);
+}
+
+.seitenkarte__augenbraue {
+  margin: 0 0 8px;
+  color: var(--farbe-sekundaer);
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin: 0;
+  color: var(--farbe-navy);
+  font-size: clamp(1.75rem, 5vw, 2.5rem);
+  line-height: 1.2;
+}
+
+.seitenkarte__beschreibung {
+  max-width: 58ch;
+  margin: 16px 0 0;
+  color: var(--farbe-sekundaer);
+  font-size: 1.05rem;
+}
+
+.statushinweis {
+  width: fit-content;
+  margin: 24px 0 0;
+  padding: 8px 12px;
+  border: 1px solid var(--farbe-linie);
+  border-radius: 999px;
+  color: var(--farbe-sekundaer);
+  font-size: 0.9rem;
+}
+
+.parameterliste {
+  display: grid;
+  gap: 12px;
+  margin: 24px 0 0;
+}
+
+.parameterliste div {
+  padding: 12px;
+  border-radius: 8px;
+  background-color: var(--farbe-hintergrund);
+}
+
+.parameterliste dt {
+  color: var(--farbe-sekundaer);
+  font-size: 0.875rem;
+}
+
+.parameterliste dd {
+  margin: 2px 0 0;
+  font-weight: 700;
+}
+
+.seitenfuss {
+  padding: 16px;
+  color: var(--farbe-flaeche);
+  background-color: var(--farbe-navy);
+  text-align: center;
+}
+
+.seitenfuss p {
+  margin: 0;
+}
+
+@media (min-width: 700px) {
+  .seitenkopf__innen {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .seiteninhalt {
+    padding: 56px 0;
+  }
+
+  .seitenkarte {
+    padding: 36px;
+  }
+
+  .parameterliste {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
