@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import type { LadeStatus, Ort } from '../typen'
+import leseOpenMeteoOrt from '../utils/openMeteo'
 
 interface UseGeocodingErgebnis {
   orte: Ort[]
@@ -9,33 +10,6 @@ interface UseGeocodingErgebnis {
 
 function istObjekt(wert: unknown): wert is Record<string, unknown> {
   return typeof wert === 'object' && wert !== null
-}
-
-function leseOrt(wert: unknown): Ort {
-  if (
-    !istObjekt(wert) ||
-    typeof wert.id !== 'number' ||
-    typeof wert.name !== 'string' ||
-    typeof wert.country !== 'string' ||
-    typeof wert.latitude !== 'number' ||
-    typeof wert.longitude !== 'number'
-  ) {
-    throw new Error('Die Ortssuche hat ein ungültiges Ergebnis geliefert.')
-  }
-
-  const ort: Ort = {
-    id: wert.id,
-    name: wert.name,
-    land: wert.country,
-    breitengrad: wert.latitude,
-    laengengrad: wert.longitude,
-  }
-
-  if (typeof wert.admin1 === 'string') {
-    ort.region = wert.admin1
-  }
-
-  return ort
 }
 
 function leseOrte(antwort: unknown): Ort[] {
@@ -53,7 +27,7 @@ function leseOrte(antwort: unknown): Ort[] {
     throw new Error('Die Ortssuche hat eine ungültige Antwort geliefert.')
   }
 
-  return ergebnisse.map(leseOrt)
+  return ergebnisse.map(leseOpenMeteoOrt)
 }
 
 function useGeocoding(suchbegriff: string): UseGeocodingErgebnis {
