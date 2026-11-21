@@ -208,6 +208,111 @@ h1 {
   color: var(--farbe-sekundaer);
 }
 
+.ortseitenabschnitt {
+  margin-top: 32px;
+}
+
+.ortseitenabschnitt h2 {
+  margin: 0 0 12px;
+  color: var(--farbe-navy);
+  font-size: 1.25rem;
+}
+
+.datumsauswahl,
+.motivsauswahl {
+  display: grid;
+  gap: 8px;
+}
+
+.datumsauswahl {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.motivsauswahl {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.auswahlknopf {
+  display: flex;
+  min-height: 46px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  border: 1px solid var(--farbe-linie);
+  border-radius: 8px;
+  color: var(--farbe-navy);
+  background-color: var(--farbe-flaeche);
+  font: inherit;
+  cursor: pointer;
+}
+
+.auswahlknopf:hover {
+  border-color: var(--farbe-navy);
+}
+
+.auswahlknopf:focus-visible {
+  outline: 3px solid #78b7e5;
+  outline-offset: 2px;
+}
+
+.auswahlknopf--aktiv {
+  border-color: var(--farbe-navy);
+  color: var(--farbe-flaeche);
+  background-color: var(--farbe-navy);
+}
+
+.sonnenzeiten {
+  margin: 0;
+  padding: 12px;
+  border-radius: 8px;
+  color: var(--farbe-sekundaer);
+  background-color: var(--farbe-hintergrund);
+}
+
+.zeitleiste {
+  display: grid;
+  gap: 10px;
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.zeitleiste__eintrag {
+  padding: 12px;
+  border: 1px solid var(--farbe-linie);
+  border-radius: 10px;
+  background-color: var(--farbe-flaeche);
+}
+
+.zeitleistenstunde {
+  display: grid;
+  grid-template-columns: 52px minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+}
+
+.zeitleistenstunde__zeit {
+  font-weight: 700;
+}
+
+.zeitleistenstunde__werte {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin: 0;
+}
+
+.zeitleistenstunde__werte dt {
+  color: var(--farbe-sekundaer);
+  font-size: 0.8rem;
+}
+
+.zeitleistenstunde__werte dd {
+  margin: 0;
+  font-weight: 700;
+}
+
 .parameterliste {
   display: grid;
   gap: 12px;
@@ -258,5 +363,13 @@ h1 {
 
   .parameterliste {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .datumsauswahl {
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+  }
+
+  .motivsauswahl {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
