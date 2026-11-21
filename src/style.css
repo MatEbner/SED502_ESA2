@@ -118,6 +118,38 @@ h1 {
   font-size: 1.05rem;
 }
 
+.suchfeld {
+  display: grid;
+  gap: 8px;
+  margin-top: 28px;
+}
+
+.suchfeld label {
+  font-weight: 700;
+}
+
+.suchfeld input {
+  width: 100%;
+  min-height: 48px;
+  padding: 10px 12px;
+  border: 1px solid var(--farbe-linie);
+  border-radius: 8px;
+  color: var(--farbe-text);
+  background-color: var(--farbe-flaeche);
+  font: inherit;
+}
+
+.suchfeld input:focus-visible {
+  outline: 3px solid #78b7e5;
+  outline-offset: 2px;
+}
+
+.suchfeld__hinweis {
+  margin: 0;
+  color: var(--farbe-sekundaer);
+  font-size: 0.9rem;
+}
+
 .statushinweis {
   width: fit-content;
   margin: 24px 0 0;
@@ -143,6 +175,37 @@ h1 {
 .statusanzeige--fehler {
   border-color: var(--farbe-fehler);
   color: var(--farbe-fehler);
+}
+
+.ortliste {
+  display: grid;
+  gap: 12px;
+  margin: 24px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ortkarte {
+  padding: 16px;
+  border: 1px solid var(--farbe-linie);
+  border-radius: 10px;
+  background-color: var(--farbe-flaeche);
+}
+
+.ortkarte__titel {
+  margin: 0;
+  color: var(--farbe-navy);
+  font-size: 1.125rem;
+}
+
+.ortkarte__link {
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.ortkarte__details {
+  margin: 4px 0 0;
+  color: var(--farbe-sekundaer);
 }
 
 .parameterliste {
