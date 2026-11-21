@@ -296,6 +296,53 @@ h1 {
   font-weight: 700;
 }
 
+.fotowert {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding: 8px 10px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+.fotowert--hoch {
+  color: #0e6040;
+  background-color: #e5f4ed;
+}
+
+.fotowert--gut {
+  color: #286044;
+  background-color: #eef7f0;
+}
+
+.fotowert--mittel {
+  color: #805911;
+  background-color: #fbf3df;
+}
+
+.fotowert--niedrig {
+  color: #842d25;
+  background-color: #fae9e7;
+}
+
+.stundemerkmale {
+  display: flex;
+  grid-column: 1 / -1;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.stundemerkmale li {
+  padding: 4px 8px;
+  border: 1px solid var(--farbe-linie);
+  border-radius: 999px;
+  color: var(--farbe-navy);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
 .zeitleistenstunde__werte {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -311,6 +358,30 @@ h1 {
 .zeitleistenstunde__werte dd {
   margin: 0;
   font-weight: 700;
+}
+
+.scorehinweis {
+  margin: 12px 0 0;
+  color: var(--farbe-sekundaer);
+  font-size: 0.9rem;
+}
+
+.briefingaktion {
+  display: inline-flex;
+  min-height: 46px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  padding: 10px 18px;
+  border-radius: 8px;
+  color: var(--farbe-flaeche);
+  background-color: var(--farbe-navy);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.briefingaktion:hover {
+  background-color: #284761;
 }
 
 .parameterliste {

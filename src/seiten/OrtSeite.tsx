@@ -1,12 +1,19 @@
 import type { JSX } from 'react'
 import { useState } from 'react'
-import { useParams } from 'react-router'
+import { Link, useParams } from 'react-router'
 import FehlerAnzeige from '../komponenten/FehlerAnzeige'
 import LadeAnzeige from '../komponenten/LadeAnzeige'
 import ZeitleistenStunde from '../komponenten/ZeitleistenStunde'
 import useOrt from '../hooks/useOrt'
 import useWetter from '../hooks/useWetter'
-import type { Motiv, WetterStunde } from '../typen'
+import type { BewerteteStunde, Motiv, WetterStunde } from '../typen'
+import baueBriefingDaten from '../utils/briefing'
+import {
+  besteZeitfenster,
+  berechneFotoScore,
+  istGoldeneStunde,
+  istImTageslicht,
+} from '../utils/fotoScore'
 
 const motive: Motiv[] = ['Landschaft', 'Architektur', 'Portrait', 'Stadt']
 
@@ -50,6 +57,34 @@ function OrtSeite(): JSX.Element {
     status: wetterStatus,
     fehler: wetterFehler,
   } = useWetter(ort, datum)
+  const bewerteteStunden: BewerteteStunde[] =
+    sonnenzeiten === null
+      ? []
+      : stunden
+          .filter((stunde: WetterStunde): boolean =>
+            istImTageslicht(stunde.zeit, sonnenzeiten),
+          )
+          .map(
+            (stunde: WetterStunde): BewerteteStunde => ({
+              ...stunde,
+              score: berechneFotoScore(stunde, motiv, sonnenzeiten),
+            }),
+          )
+  const besteStunden = besteZeitfenster(bewerteteStunden, 3)
+  const besteZeitpunkte = new Set(
+    besteStunden.map((stunde: BewerteteStunde): string => stunde.zeit),
+  )
+  const briefingDaten =
+    ort !== null && sonnenzeiten !== null && bewerteteStunden.length > 0
+      ? baueBriefingDaten(ort, datum, motiv, bewerteteStunden, sonnenzeiten)
+      : null
+  const briefingParameter =
+    briefingDaten === null
+      ? null
+      : new URLSearchParams({
+          datum: briefingDaten.datum,
+          motiv: briefingDaten.motiv,
+        })
 
   function waehleDatum(neuesDatum: string): void {
     setDatum(neuesDatum)
@@ -137,16 +172,38 @@ function OrtSeite(): JSX.Element {
                     </time>
                   </p>
                 )}
-                {stunden.length > 0 ? (
+                <p className="scorehinweis">
+                  Der Score berücksichtigt Regen, starken Wind,
+                  motivabhängige Bewölkung und die Goldene Stunde.
+                </p>
+                {bewerteteStunden.length > 0 ? (
                   <ul className="zeitleiste" aria-label="Stündliche Wetterdaten">
-                    {stunden.map((stunde: WetterStunde): JSX.Element => (
-                      <ZeitleistenStunde key={stunde.zeit} stunde={stunde} />
-                    ))}
+                    {bewerteteStunden.map(
+                      (stunde: BewerteteStunde): JSX.Element => (
+                        <ZeitleistenStunde
+                          key={stunde.zeit}
+                          stunde={stunde}
+                          goldeneStunde={
+                            sonnenzeiten !== null &&
+                            istGoldeneStunde(stunde.zeit, sonnenzeiten)
+                          }
+                          bestesZeitfenster={besteZeitpunkte.has(stunde.zeit)}
+                        />
+                      ),
+                    )}
                   </ul>
                 ) : (
                   <p className="statushinweis">
-                    Für diesen Tag sind keine stündlichen Wetterdaten verfügbar.
+                    Für diesen Tag gibt es keine Wetterdaten bei Tageslicht.
                   </p>
+                )}
+                {briefingParameter !== null && ort !== null && (
+                  <Link
+                    className="briefingaktion"
+                    to={`/briefing/${ort.id}?${briefingParameter.toString()}`}
+                  >
+                    Briefing erstellen
+                  </Link>
                 )}
               </>
             )}
